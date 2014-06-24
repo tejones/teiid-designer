@@ -90,7 +90,7 @@ public class ObjectDeleteCommand implements RefactorCommand {
             // all objects to delete must be in the same resource
             if (objects.size() > 1) {
                 for (EObject eObject : objects) {
-                    if (eObject == null || eObject.eResource() == null) {
+                	if (eObject == null || eObject.eResource() == null) {
                         deleteArrayContainsNull = true;
                         break;
                     }
@@ -184,13 +184,13 @@ public class ObjectDeleteCommand implements RefactorCommand {
      * @return collection
      */
     @SuppressWarnings("unchecked")
-	public Set<ModelResource> getDependentResources() {
+    public Set<ModelResource> getDependentResources() {
         Set<ModelResource> result = new HashSet<ModelResource>();
         Collection<Resource> emfResourceList = new HashSet<Resource>();
 
         for (EObject object : objectsToDelete) {
             try {
-				Collection<EObject> relatedList = ModelerCore.getModelEditor().findOtherObjectsToBeDeleted(object);
+                Collection<EObject> relatedList = ModelerCore.getModelEditor().findOtherObjectsToBeDeleted(object);
                 relatedList = ModelerCore.getModelEditor().findExternalReferencesToObjectsBeingDeleted(object, relatedList);
                 for (EObject dependent : relatedList) {
                     Resource resource = dependent.eResource();
